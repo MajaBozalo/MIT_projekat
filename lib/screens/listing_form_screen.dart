@@ -4,7 +4,11 @@ import '../models/listing.dart';
 
 class ListingFormScreen extends StatefulWidget {
   final Listing? editListing;
-  const ListingFormScreen({super.key, this.editListing});
+
+  const ListingFormScreen({
+    super.key,
+    this.editListing,
+  });
 
   @override
   State<ListingFormScreen> createState() => _ListingFormScreenState();
@@ -25,10 +29,13 @@ class _ListingFormScreenState extends State<ListingFormScreen> {
   void initState() {
     super.initState();
     final l = widget.editListing;
+
     _title = TextEditingController(text: l?.title ?? '');
     _location = TextEditingController(text: l?.location ?? '');
     _description = TextEditingController(text: l?.description ?? '');
-    _price = TextEditingController(text: l != null ? l.price.toStringAsFixed(0) : '');
+    _price = TextEditingController(
+      text: l != null ? l.price.toStringAsFixed(0) : '',
+    );
     _imageUrl = TextEditingController(text: l?.imageUrl ?? '');
   }
 
@@ -46,9 +53,11 @@ class _ListingFormScreenState extends State<ListingFormScreen> {
     if (!_formKey.currentState!.validate()) return;
 
     final app = AppScope.of(context);
-    final price = double.tryParse(_price.text.replaceAll(',', '.')) ?? 0;
+    final price =
+        double.tryParse(_price.text.replaceAll(',', '.')) ?? 0;
 
     if (isEdit) {
+      // UPDATE
       app.updateListing(
         widget.editListing!.id,
         title: _title.text,
@@ -58,13 +67,18 @@ class _ListingFormScreenState extends State<ListingFormScreen> {
         imageUrl: _imageUrl.text,
       );
     } else {
-      app.addListing(
+      // ADD
+      final newListing = Listing(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
         title: _title.text,
         location: _location.text,
         description: _description.text,
         price: price,
         imageUrl: _imageUrl.text,
+        ownerEmail: app.user!.email,
       );
+
+      app.addListing(newListing);
     }
 
     Navigator.of(context).pop();
@@ -85,36 +99,53 @@ class _ListingFormScreenState extends State<ListingFormScreen> {
               TextFormField(
                 controller: _title,
                 decoration: const InputDecoration(labelText: 'Naslov'),
-                validator: (v) => (v == null || v.trim().isEmpty) ? 'Unesi naslov' : null,
+                validator: (v) =>
+                    (v == null || v.trim().isEmpty)
+                        ? 'Unesi naslov'
+                        : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _location,
                 decoration: const InputDecoration(labelText: 'Lokacija'),
-                validator: (v) => (v == null || v.trim().isEmpty) ? 'Unesi lokaciju' : null,
+                validator: (v) =>
+                    (v == null || v.trim().isEmpty)
+                        ? 'Unesi lokaciju'
+                        : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _description,
                 decoration: const InputDecoration(labelText: 'Opis'),
-                validator: (v) => (v == null || v.trim().isEmpty) ? 'Unesi opis' : null,
+                validator: (v) =>
+                    (v == null || v.trim().isEmpty)
+                        ? 'Unesi opis'
+                        : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _price,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'Cena (EUR)'),
+                decoration:
+                    const InputDecoration(labelText: 'Cena (EUR)'),
                 validator: (v) {
-                  final p = double.tryParse((v ?? '').replaceAll(',', '.'));
-                  if (p == null || p <= 0) return 'Unesi validnu cenu';
+                  final p =
+                      double.tryParse((v ?? '').replaceAll(',', '.'));
+                  if (p == null || p <= 0) {
+                    return 'Unesi validnu cenu';
+                  }
                   return null;
                 },
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _imageUrl,
-                decoration: const InputDecoration(labelText: 'URL slike'),
-                validator: (v) => (v == null || v.trim().isEmpty) ? 'Unesi URL slike' : null,
+                decoration:
+                    const InputDecoration(labelText: 'URL slike'),
+                validator: (v) =>
+                    (v == null || v.trim().isEmpty)
+                        ? 'Unesi URL slike'
+                        : null,
               ),
               const SizedBox(height: 18),
               SizedBox(
@@ -122,10 +153,18 @@ class _ListingFormScreenState extends State<ListingFormScreen> {
                 child: ElevatedButton(
                   onPressed: _save,
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(12),
+                    ),
                   ),
-                  child: Text(isEdit ? 'Sačuvaj izmene' : 'Dodaj'),
+                  child: Text(
+                    isEdit
+                        ? 'Sačuvaj izmene'
+                        : 'Dodaj',
+                  ),
                 ),
               ),
             ],

@@ -4,7 +4,7 @@ import 'package:mit_projekat/screens/guests_screen.dart';
 
 class AppUser {
   final String email;
-  final String role; // registered | admin
+  final String role; // 'guest', 'registered', 'admin'
 
   const AppUser({
     required this.email,
@@ -14,6 +14,7 @@ class AppUser {
 
 class AppState extends ChangeNotifier {
   AppUser? _user;
+
   AppUser? get user => _user;
 
   final List<Listing> _listings = [
@@ -22,20 +23,20 @@ class AppState extends ChangeNotifier {
 
   List<Listing> get listings => List.unmodifiable(_listings);
 
-  // =====================
+  // ======================
   // AUTH
-  // =====================
+  // ======================
 
   void register({required String email, required String password}) {
-    _user = AppUser(email: email, role: "registered");
+    _user = AppUser(email: email.trim(), role: 'registered');
     notifyListeners();
   }
 
   void login({required String email, required String password}) {
     if (email == "admin@gmail.com") {
-      _user = AppUser(email: email, role: "admin");
+      _user = AppUser(email: email.trim(), role: 'admin');
     } else {
-      _user = AppUser(email: email, role: "registered");
+      _user = AppUser(email: email.trim(), role: 'registered');
     }
     notifyListeners();
   }
@@ -45,14 +46,33 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool get isAdmin => _user?.role == "admin";
+  bool get isAdmin => _user?.role == 'admin';
+  bool get isRegistered => _user?.role == 'registered';
 
-  // =====================
-  // LISTINGS
-  // =====================
+  // ======================
+  // LISTING LOGIC
+  // ======================
 
-  void addListing(Listing listing) {
-    _listings.insert(0, listing);
+  void addListing({
+    required String title,
+    required String location,
+    required String description,
+    required double price,
+    required String imageUrl,
+  }) {
+    if (_user == null) return;
+
+    final newListing = Listing(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      title: title,
+      location: location,
+      description: description,
+      price: price,
+      imageUrl: imageUrl,
+      ownerEmail: _user!.email,
+    );
+
+    _listings.add(newListing);
     notifyListeners();
   }
 
@@ -86,12 +106,15 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteListing(String id) {
-    final listing = _listings.firstWhere((l) => l.id == id);
+    final index = _listings.indexWhere((l) => l.id == id);
+    if (index == -1) return;
+
+    final listing = _listings[index];
 
     // Samo vlasnik ili admin smije brisati
     if (!isAdmin && listing.ownerEmail != _user?.email) return;
 
-    _listings.removeWhere((l) => l.id == id);
+    _listings.removeAt(index);
     notifyListeners();
   }
 }

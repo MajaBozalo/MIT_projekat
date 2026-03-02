@@ -3,6 +3,7 @@ import '../app_scope.dart';
 import '../models/listing.dart';
 import 'listing_form_screen.dart';
 import 'guests_screen.dart'; 
+import 'listing_detail_screen.dart';
 
 class RegisteredHomeScreen extends StatelessWidget {
   const RegisteredHomeScreen({super.key});

@@ -5,6 +5,7 @@ class Listing {
   final String description;
   final double price;
   final String imageUrl;
+  final String ownerEmail;
 
   const Listing({
     required this.id,
@@ -13,5 +14,6 @@ class Listing {
     required this.description,
     required this.price,
     required this.imageUrl,
+    required this.ownerEmail,
   });
 }

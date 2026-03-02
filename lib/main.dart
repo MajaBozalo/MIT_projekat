@@ -14,11 +14,9 @@ class MyApp extends StatelessWidget {
 
     return AppScope(
       notifier: appState,
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Izdavanje stanova',
-        theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
-        home: const HomeScreen(),
+        home: HomeScreen(),
       ),
     );
   }

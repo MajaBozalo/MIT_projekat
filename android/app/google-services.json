@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1036448686627",
+    "project_id": "mitprojekat-c4400",
+    "storage_bucket": "mitprojekat-c4400.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036448686627:android:038fd8cd372476aaf10796",
+        "android_client_info": {
+          "package_name": "com.example.mit_projekat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZaKp_qVfMuzRMK41PyjrOrKTRLFPfRPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

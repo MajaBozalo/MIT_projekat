@@ -1,6 +1,8 @@
 // ...existing code...
 import 'package:flutter/material.dart';
 import 'guests_screen.dart';
+import 'admin_screen.dart'; // <-- add this import
+import 'login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -78,73 +80,4 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-/// Simple UI-only placeholder for LoginScreen (no backend)
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 520),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  'Login screen (UI only)',
-                  style: TextStyle(fontSize: 18),
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Email', border: OutlineInputBorder()),
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Lozinka', border: OutlineInputBorder()),
-                  obscureText: true,
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(onPressed: () {}, child: const Text('Prijavi se')),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Simple UI-only placeholder for AdminScreen (no backend)
-class AdminScreen extends StatelessWidget {
-  const AdminScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Administrator')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 720),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                Icon(Icons.admin_panel_settings, size: 72, color: Colors.grey),
-                SizedBox(height: 12),
-                Text('Admin panel (UI only)', style: TextStyle(fontSize: 18)),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+// ...existing code...

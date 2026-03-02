@@ -1,48 +1,54 @@
 import 'package:flutter/material.dart';
+import '../models/listing.dart';
 
 class ListingCard extends StatelessWidget {
-  final String title;
-  final String location;
-  final double price;
+  final Listing listing;
 
-  const ListingCard({
-    super.key,
-    required this.title,
-    required this.location,
-    required this.price,
-  });
+  const ListingCard({Key? key, required this.listing}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final priceText = '€${listing.price.toStringAsFixed(0)} / mesečno';
+
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            height: 160,
+            child: Image.network(
+              listing.imageUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) =>
+                  const Center(child: Icon(Icons.broken_image)),
             ),
-            const SizedBox(height: 8),
-            Text("Lokacija: $location"),
-            const SizedBox(height: 8),
-            Text(
-              "Cena: €$price",
-              style: const TextStyle(
-                color: Colors.blue,
-                fontWeight: FontWeight.bold,
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(14),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(listing.title,
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 6),
+                      Text(listing.location,
+                          style: const TextStyle(color: Colors.grey)),
+                    ],
+                  ),
+                ),
+                Text(priceText,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.blue)),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

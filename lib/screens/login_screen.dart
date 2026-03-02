@@ -104,9 +104,9 @@ class ListingCard extends StatelessWidget {
   }
 }
 
-/// RegistrovaniScreen - UI only, no backend, no navigation
-class RegistrovaniScreen extends StatelessWidget {
-  const RegistrovaniScreen({Key? key}) : super(key: key);
+/// LoginScreen - UI only, no backend, no navigation
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   static const List<Listing> sampleListings = [
     Listing(

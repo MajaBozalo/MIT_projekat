@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'guests_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -29,9 +30,24 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
+
             ElevatedButton(
               onPressed: () {},
               child: const Text("Prijavi se"),
+            ),
+
+            const SizedBox(height: 15),
+
+            OutlinedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const GuestHomeScreen(),
+                  ),
+                );
+              },
+              child: const Text("Nastavi kao gost"),
             ),
           ],
         ),

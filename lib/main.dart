@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/guests_screen.dart';
 void main() {
   runApp(const RentifyApp());
 }
@@ -17,7 +18,7 @@ class RentifyApp extends StatelessWidget {
         colorSchemeSeed: Colors.blue,
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+      home: const GuestHomeScreen(),
     );
   }
 }

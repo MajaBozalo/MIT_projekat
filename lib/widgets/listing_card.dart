@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import '../models/listing.dart';
+import 'package:mit_projekat/models/listing.dart';
 
 class ListingCard extends StatelessWidget {
   final Listing listing;
+  final VoidCallback? onDetails;
 
-  const ListingCard({Key? key, required this.listing}) : super(key: key);
+  const ListingCard({
+    super.key,
+    required this.listing,
+    this.onDetails,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final priceText = '€${listing.price.toStringAsFixed(0)} / mesečno';
-
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       elevation: 4,
@@ -26,7 +29,7 @@ class ListingCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(14),
+            padding: const EdgeInsets.all(12),
             child: Row(
               children: [
                 Expanded(
@@ -35,16 +38,34 @@ class ListingCard extends StatelessWidget {
                     children: [
                       Text(listing.title,
                           style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 6),
+                              fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 4),
                       Text(listing.location,
                           style: const TextStyle(color: Colors.grey)),
+                      const SizedBox(height: 6),
+                      Text(listing.description,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis),
                     ],
                   ),
                 ),
-                Text(priceText,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.blue)),
+                const SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      "€${listing.price.toStringAsFixed(0)}",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue),
+                    ),
+                    const SizedBox(height: 6),
+                    ElevatedButton(
+                      onPressed: onDetails,
+                      child: const Text("Detalji"),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

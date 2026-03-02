@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
+import 'app_scope.dart';
+import 'app_state.dart';
 import 'screens/home_screen.dart';
-import 'screens/login_screen.dart';
-import 'screens/guests_screen.dart';
-void main() {
-  runApp(const RentifyApp());
-}
 
-class RentifyApp extends StatelessWidget {
-  const RentifyApp({super.key});
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Rentify',
-      theme: ThemeData(
-        colorSchemeSeed: Colors.blue,
-        useMaterial3: true,
+    final appState = AppState();
+
+    return AppScope(
+      notifier: appState,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Izdavanje stanova',
+        theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
+        home: const HomeScreen(),
       ),
-      home: const HomeScreen(),
     );
   }
 }
-

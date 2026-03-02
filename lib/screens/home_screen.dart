@@ -1,8 +1,7 @@
-// ...existing code...
 import 'package:flutter/material.dart';
 import 'guests_screen.dart';
-import 'admin_screen.dart'; // <-- add this import
-import 'login_screen.dart';
+import 'admin_screen.dart';
+import 'login_screen.dart'; // <-- DODAJ OVO
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -38,7 +37,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Izdavanje stanova'),
         centerTitle: true,
-        surfaceTintColor: Colors.transparent, // nicer Material 3 look when supported
+        surfaceTintColor: Colors.transparent,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -79,5 +78,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-// ...existing code...

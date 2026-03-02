@@ -18,7 +18,7 @@ class RentifyApp extends StatelessWidget {
         colorSchemeSeed: Colors.blue,
         useMaterial3: true,
       ),
-      home: const GuestHomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
